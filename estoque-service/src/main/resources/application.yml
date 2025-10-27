@@ -5,14 +5,19 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/estoque?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
-    password: root
+    password: admin
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: d3vpmhuc4cape6v3t7ig.any.us-east-1.mpx.prd.cloud.redpanda.com:9092
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: SCRAM-SHA-256
+      sasl.jaas.config: org.apache.kafka.common.security.scram.ScramLoginModule required username="prof" password="lgaTcPUIXQ64t4V2fNmXFhtdVTL4EJ";
+      spring.json.trusted.packages: "*"
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

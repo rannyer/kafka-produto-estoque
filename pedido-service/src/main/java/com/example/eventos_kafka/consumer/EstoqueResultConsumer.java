@@ -16,6 +16,7 @@ public class EstoqueResultConsumer {
 
     @KafkaListener(topics = "${app.kafka.topic-estoque-result}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumirResultado(EstoqueResultEvent event){
+        System.out.println("ID" + event.getPedidoId());
         var pedido = pedidoRepository.findById(event.getPedidoId())
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
@@ -26,6 +27,6 @@ public class EstoqueResultConsumer {
         }
 
         pedidoRepository.save(pedido);
-
+        System.out.println("FUNCIONOU");
     }
 }

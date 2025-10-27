@@ -25,9 +25,11 @@ public class PedidoCreatedConsumer {
     @Transactional
     @KafkaListener(topics = "${app.kafka.topic-pedido-created}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumirPedido(PedidoCreatedEvent event){
+        System.out.println("ID PRODUTO" + event.getProdutoId());
         var produto = repo.findById(event.getProdutoId())
                 .orElseGet(() -> repo.save(new ProdutoEstoque(event.getProdutoId(),0)));
 
+        System.out.println("CONSUMER PEDIDO ID"+event.getPedidoId());
 
 
         boolean reservado =false;
@@ -41,7 +43,6 @@ public class PedidoCreatedConsumer {
         }
 
         repo.save(produto);
-
         resultProducer.publicarResultado(new EstoqueResultEvent(event.getPedidoId(), reservado, motivo));
     }
 }

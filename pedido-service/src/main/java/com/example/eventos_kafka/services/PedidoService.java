@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PedidoService {
     private final PedidoRepository pedidoRepository;
@@ -31,8 +33,13 @@ public class PedidoService {
 
         var evento = new PedidoCreatedEvent();
         BeanUtils.copyProperties(pedido, evento);
+        evento.setPedidoId(pedido.getId());
         pedidoProducer.publicarPedidoCriado(evento);
 
         return pedido;
+    }
+
+    public List<Pedido> pegarTodos(){
+        return pedidoRepository.findAll();
     }
 }

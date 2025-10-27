@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EventosKafkaApplication {
+public class EstoqueApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EventosKafkaApplication.class, args);
+		SpringApplication.run(EstoqueApplication.class, args);
 	}
 
 }
